@@ -9,19 +9,14 @@ menu.post('/post-create', async (c) => {
   try {
     const post = await createPost();
 
-    return c.json<UiResponse>(
-      {
-        navigateTo: `https://reddit.com/r/${context.subredditName}/comments/${post.id}`,
-      },
-      200
-    );
+    return c.json<UiResponse>({
+      navigateTo: `https://reddit.com/r/${context.subredditName}/comments/${post.id}`,
+    });
   } catch (error) {
-    console.error(`Error creating post: ${error}`);
-    return c.json<UiResponse>(
-      {
-        showToast: 'Failed to create post',
-      },
-      400
-    );
+    console.error(error);
+
+    return c.json<UiResponse>({
+      showToast: 'Failed to create game post.',
+    }, 500);
   }
 });

@@ -1,18 +1,20 @@
 export type InitResponse = {
   type: 'init';
-  postId: string;
-  count: number;
   username: string;
+  totalClicks: number;
+  hint: string;
+  hasVotedToday: boolean;
 };
 
-export type IncrementResponse = {
-  type: 'increment';
-  postId: string;
-  count: number;
+export type GameResponse = {
+  type: 'update';
+  totalClicks: number;
+  hint: string;
 };
 
-export type DecrementResponse = {
-  type: 'decrement';
-  postId: string;
-  count: number;
+export type AlreadyVotedResponse = {
+  type: 'already-voted';
+  message: string;
 };
+
+export type VoteResponse = GameResponse | AlreadyVotedResponse;
