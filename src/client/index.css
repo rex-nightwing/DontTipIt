@@ -1,1 +1,108 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  transition:
+    transform .15s ease,
+    opacity .15s ease,
+    background-color .2s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+  transform: scale(.98);
+}
+
+button:disabled {
+  opacity: .6;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(180 180 180);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn .35s ease;
+}
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+
+  50% {
+    box-shadow: 0 0 18px rgba(249,115,22,.45);
+  }
+}
+
+.glow {
+  animation: pulseGlow 2s infinite;
+}
+
+.card-hover {
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+}
+
+.progress-smooth {
+  transition: width .6s ease;
+}
+
+.activity-item {
+  animation: fadeIn .25s ease;
+}
+
+.achievement-pop {
+  animation: fadeIn .4s ease;
+}
