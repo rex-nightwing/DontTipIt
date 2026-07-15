@@ -98,22 +98,25 @@ function getStability(
   return "Collapse Imminent";
 }
 
-function getLore(score: number): string {
+function getLore(
+  score: number,
+  collapseThreshold: number
+): string {
   const value = Math.abs(score);
 
   if (value === 0)
     return "The world holds its breath.";
 
-  if (value <= 10)
+  if (value <= collapseThreshold * 0.125)
     return "The winds remain gentle.";
 
-  if (value <= 25)
+  if (value <= collapseThreshold * 0.3125)
     return "The balance begins to sway.";
 
-  if (value <= 50)
+  if (value <= collapseThreshold * 0.625)
     return "Something feels dangerously wrong.";
 
-  if (value <= 80)
+  if (value <= collapseThreshold)
     return "Reality struggles to stay together.";
 
   return "The world is moments from collapse.";
@@ -135,8 +138,8 @@ async function ensureDailyScore() {
 
   const existing = await redis.get(score);
 
-  if (existing) {
-      return Number(existing);
+  if (existing !== null && existing !== undefined) {
+    return Number(existing);
   }
 
   // Random starting value between -100 and +100
@@ -369,7 +372,10 @@ api.get('/init', async (c) => {
         settings.collapseThreshold
       ),
 
-      lore: getLore(currentScore),
+      lore: getLore(
+        currentScore,
+        settings.collapseThreshold
+      ),
 
       worldEvent,
 
@@ -648,7 +654,10 @@ async function handleVote(direction: 1 | -1, c: any) {
         settings.collapseThreshold
       ),
 
-      lore: getLore(newScore),
+      lore: getLore(
+        newScore,
+        settings.collapseThreshold
+      ),
 
       worldEvent: await getWorldEvent(),
 
